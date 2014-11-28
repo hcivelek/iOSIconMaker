@@ -1,0 +1,70 @@
+#!/bin/bash
+# My example bash script
+# Hasan Civelek
+
+echo ""
+echo 'iOS icin icon scripti'
+
+if [ "$1" = "" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--h" ] || [ "$1" = "-" ] || [ "$1" = "--" ] 
+then 
+	echo "Kullanım Şekli:	$0 kaynak1024x1024EbatliImaj [hedefDosyaOnAdi]"
+	echo "Örnek:	$0 buyukIkon.png"
+	echo "Örnek:	$0 buyukIkon.png ikon"
+	exit 1
+fi 
+
+echo 'Kaynak Dosya:' $1
+ 
+if [ -f "$1" ]
+then 
+	echo ""
+
+else 
+	echo "Dosya bulunamadı"
+	exit 1
+fi
+
+#hedef normalde dosya adi ile ayni
+#bu ifade ile dosya uzantisini atip dosya adini hedef olarak aliyoruz
+hedef=`echo $1 | cut -d '.' -f1`
+
+uzanti=`echo $1 | cut -d '.' -f2`
+
+if [ $2 ]
+then
+	hedef=$2
+fi
+
+
+
+
+
+#kaynak dosyanin boyut kontrolu
+ebat=`identify $1  | cut -d ' ' -f3`
+echo 'Ebat: ' $ebat
+
+if [ "$ebat" = "1024x1024" ]
+then
+
+
+
+
+	boyutlar=("180" "120" "152" "76" "80" "40" "87" "58" "57" "29" "50" "22")
+
+	max=${#boyutlar[@]} 
+	 
+	 
+	for num in $(seq 0 $max); do
+	    boyut=${boyutlar[$num]}"x"${boyutlar[$num]}
+	    if [ $boyut != "x" ]
+		then 
+			convert $1 -resize $boyut"x"$boyut $hedef$boyut"."$uzanti 
+		fi
+	done
+
+
+ 
+
+else
+    echo "Kaynak dosya formatı 1024x1024 olmalıdır"
+fi
