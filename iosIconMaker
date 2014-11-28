@@ -59,6 +59,7 @@ then
 	    if [ $boyut != "x" ]
 		then 
 			convert $1 -resize $boyut"x"$boyut $hedef$boyut"."$uzanti 
+			echo $hedef$boyut"."$uzanti " oluşturuldu"
 		fi
 	done
 
