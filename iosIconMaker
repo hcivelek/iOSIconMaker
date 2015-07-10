@@ -1,5 +1,4 @@
 #!/bin/bash
-# My example bash script
 # Hasan Civelek
 
 echo ""
@@ -41,31 +40,37 @@ fi
 
 #kaynak dosyanin boyut kontrolu
 ebat=`identify $1  | cut -d ' ' -f3`
-echo 'Ebat: ' $ebat
-
-if [ "$ebat" = "1024x1024" ]
-then
 
 
 
+if [ ${#ebat} == "0"]
+	then 
 
-	boyutlar=("180" "152" "144" "120" "114" "100" "87" "80" "76" "72" "60" "58" "57" "50" "40" "29" "22")
+	echo "ImageMagick kurulumunu kontrol edin."
+	exit 1
 
-	max=${#boyutlar[@]} 
-	 
-	 
-	for num in $(seq 0 $max); do
-	    boyut=${boyutlar[$num]}"x"${boyutlar[$num]}
-	    if [ $boyut != "x" ]
-		then 
-			convert $1 -resize $boyut"x"$boyut $hedef$boyut"."$uzanti 
-			echo $hedef$boyut"."$uzanti " oluşturuldu"
+	else
+		echo 'Ebat: ' $ebat  ${#ebat} 
+
+		if [ "$ebat" = "1024x1024" ] 
+			then
+
+			boyutlar=("180" "152" "144" "120" "114" "100" "87" "80" "76" "72" "60" "58" "57" "50" "40" "29" "22")
+
+			max=${#boyutlar[@]} 
+			 
+			 
+			for num in $(seq 0 $max); do
+			    boyut=${boyutlar[$num]}"x"${boyutlar[$num]}
+			    if [ $boyut != "x" ]
+				then 
+					convert $1 -resize $boyut"x"$boyut $hedef$boyut"."$uzanti 
+					echo $hedef$boyut"."$uzanti " oluşturuldu"
+				fi
+			done
+
+		else
+		    echo "Kaynak dosya formatı 1024x1024 olmalıdır"
 		fi
-	done
 
-
- 
-
-else
-    echo "Kaynak dosya formatı 1024x1024 olmalıdır"
 fi
