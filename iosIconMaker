@@ -41,16 +41,16 @@ fi
 #kaynak dosyanin boyut kontrolu
 ebat=`identify $1  | cut -d ' ' -f3`
 
+uzunluk=${#ebat}
 
-
-if [ ${#ebat} == "0"]
+if [ $uzunluk = "0" ]
 	then 
 
 	echo "ImageMagick kurulumunu kontrol edin."
 	exit 1
 
 	else
-		echo 'Ebat: ' $ebat  ${#ebat} 
+		echo 'Ebat: ' $ebat   
 
 		if [ "$ebat" = "1024x1024" ] 
 			then
