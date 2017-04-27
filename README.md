@@ -17,4 +17,4 @@ Then
 Usage
 =====
 
-`#./iOSIconMaker  fileName.jpg  targetPrefixName`
+`#./iOSIconMaker  fileName.png`
